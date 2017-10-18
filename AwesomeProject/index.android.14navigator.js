@@ -4,17 +4,17 @@
  */
 'use strict';
 
-import React, {Component} from 'react';
-import {Navigator} from 'react-native-deprecated-custom-components';
-
-import {
+import React, {
     AppRegistry,
+    Component,
     StyleSheet,
     PixelRatio,
+    Navigator,
     ScrollView,
     Text,
     View
 } from 'react-native';
+
 
 
 class AwesomeProject extends Component {
@@ -25,20 +25,24 @@ class AwesomeProject extends Component {
             <Navigator
                 initialRoute={{ name: defaultName, component: defaultComponent }}
                 //配置场景
-                configureScene= {
-                    (route) => {
-                    //这个是页面之间跳转时候的动画，具体有哪些？可以看这个目录下，有源代码的: node_modules/react-native/Libraries/CustomComponents/Navigator/NavigatorSceneConfigs.js
-                        return Navigator.SceneConfigs.VerticalDownSwipeJump;
-                    }
-                  }
+                configureScene=
+                    {
+                (route) => {
+    
+                //这个是页面之间跳转时候的动画，具体有哪些？可以看这个目录下，有源代码的: node_modules/react-native/Libraries/CustomComponents/Navigator/NavigatorSceneConfigs.js
+    
+                return Navigator.SceneConfigs.VerticalDownSwipeJump;
+              }
+              }
                 renderScene={
-                    (route, navigator) =>
-                     {
-                        let Component = route.component;
-                        return <Component {...route.params} navigator={navigator} />
-                      }
-                   }
-            />
+            (route, navigator) =>
+             {
+            let Component = route.component;
+            return <Component {...route.params} navigator={navigator} />
+          }
+          } />
+
+
         );
     }
 }
@@ -64,6 +68,7 @@ class List extends Component {
         }
     }
 
+
     render(){
         return (
             <ScrollView style={styles.flex}>
@@ -73,6 +78,8 @@ class List extends Component {
             </ScrollView>
         );
     }
+
+
 }
 
 
@@ -103,6 +110,13 @@ class Detail extends Component{
     }
 }
 
+
+
+
+
+
+
+
 const styles = StyleSheet.create({
 
     flex:{
@@ -118,6 +132,9 @@ const styles = StyleSheet.create({
         borderBottomColor:'#ddd',
         justifyContent:'center',
     },
+
+
+
 });
 
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
