@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Object的静态成员：
+1.Object.apply 借用其他对象的方法
+2.Object.assign 拷贝属性
+3.Object.arguments 函数的隐藏参数，接受实参
+4.Object.create 创建对象并设置原型对象
+5.Object.getOwnPropertyDescriptor 获取实例属性的描述信息
+    {
+        value: "zs",
+        writable: true,    是否可修改
+        enumerable: true,  是否可枚举
+        configurable: true  是否可配置（1.是否可以删除2.是否可以修改该配置）
+    }
+6.Object.defineProperty 定义一个属性，并设置该属性的描述信息
+    1.修改已经存在的属性，默认是true
+    2.添加新的属性，默认是false
+
+7.Object.getOwnPropertyNames  获取一个对象实例属性的属性名,返回一个数组
+8.Object.keys 获取一个对象所有的key，不包括原型属性或不可以枚举的实例属性
+
+9. Object.call  借用其他对象的方法
+10.Object.caller 返回调用函数的函数,在全局作用域中调用返回null
+11.Object.constructor 指向对应的构造函数
+
+12.Object.getPrototypeOf 获取对象的原型对象
+
+13.Object.preventExtensions | Object.isExtensible
+    禁止对象扩展，默认情况可以给对象添加属性，如果禁止扩展，就不能添加属性
+14.Object.seal | Object.isSealed
+    密封对象 禁止扩展（不能添加） 不能删除 可以修改
+15.Object.freeze | Object.isFrozen
+    冻结对象 禁止扩展（不能添加） 不能删除 不可以修改
+<script>
+    var obj = {name : 'zs'};
+    var obj1 = {des : 'des'};
+    var o = {};
+
+//    console.log(Object.assign(o, obj, obj1));
+</script>
+<script>
+
+    function fun() {
+        // .,....
+        // 它不是一个数组，是一对象，是一个类似于数组的结构的对象
+//        console.log(arguments);
+//        console.log(Array.isArray(arguments)); // false
+//        console.log(arguments[3]);
+    }
+    fun(1,2,5,6,7,8,9,0,4,5);
+
+</script>
+<script>
+    var obj = {name : 'zs'};
+//    console.log(Object.getOwnPropertyDescriptor(obj, 'name'));
+    // 第一参数：要操作的对象
+    // 第二个参数：要操作该对象的哪一个属性
+    // 第三个参数：该属性的描述对象
+    Object.defineProperty(obj,'name',{
+        configurable : true,
+        enumerable : true,
+        writable : true,
+        value : "zs"
+    });
+
+     Object.defineProperty(obj,'age',{
+
+     });
+    console.log(Object.getOwnPropertyDescriptor(obj, 'age'));
+//    delete obj.name;
+//    console.log(obj);
+//    obj.name = 'ls';
+//    console.log(obj);
+
+</script>
+<script>
+//    var obj = {
+//        name : 'zs',
+//        age : 20
+//    }
+//    console.log(Object.getOwnPropertyNames(obj));
+//    console.log(Object.keys(obj));
+
+    function Person() {
+        this.name = 'moren';
+        this.age = 20;
+    }
+    Person.prototype.des = 'des';
+
+    var p1 = new Person();
+
+    Object.defineProperty(p1,'name',{
+        enumerable : false
+    });
+
+    console.log(Object.getOwnPropertyNames(p1));
+    console.log(Object.keys(p1));
+
+</script>
+<script>
+    function fun1() {
+        console.log(fun1.caller);
+    }
+    function fun2() {
+        fun1();
+    }
+//    fun2();
+
+    fun1();
+</script>
+<script>
+    function Person() {
+
+    }
+    Person.prototype = {
+        des : 'des'
+    }
+
+    var p1 = new Person();
+    console.log(p1.__proto__ == Object.getPrototypeOf(p1)); // true
+
+</script>
+<script>
+    var obj = {name : 'zs'};
+    // 禁止对象扩展
+    Object.preventExtensions(obj);
+//    obj.age = 20;// 不能添加属性
+    obj.name = 'ls'; // 可以修改
+    delete obj.name; // 可以删除
+    console.log(obj);
+</script>
+<script>
+    var obj = {name : 'zs'};
+    // 密封对象
+    Object.seal(obj);
+//    obj.age = 20;// 不能添加属性
+    obj.name = 'ls'; // 可以修改
+//    delete obj.name; // 不能删除
+    console.log(obj);
+</script>
+<script>
+    var obj = {name : 'zs'};
+    // 冻结对象
+    Object.freeze(obj);
+//    obj.age = 20;// 不能添加属性
+//    obj.name = 'ls'; // 不能修改
+//        delete obj.name; // 不能删除
+    console.log(obj);
+</script>
+<script>
+    console.log(  "==================我是华丽的分割线====================" );
+    function Person(_name,_age){
+        this.age = _age;
+        this.name=_name;
+    }
+
+    var person = new Person("hunan" , 19);
+    console.log( person );
+
+    Person.add = function(num1,num2){
+        return num1 + num2 ;
+    }
+
+    console.log( person);
+    console.log( person.constructor.add(1,222) );
+    console.log( Person.add(1,222) );
+    console.log( Person === person.constructor );
+
+
+
+    console.log( Person );
+    console.log( Object.keys( Person ) );
+
+    console.log( Person.add( 1 , 2 ) );
+    console.log( Person.add( 1 , 2 ) );
+
+</script>
+<script>
+    console.log(  "==================我是华丽的分割线====================" );
+    function Person(_name,_age){
+        this.age = _age;
+        this.name=_name;
+
+        function add(num1 ,num2){
+            return num1 + num2 ;
+        }
+
+        var pppp = 10000;
+
+        this.sub = function(num1,num2){
+            return num1 -num2 ;
+        }
+    }
+
+    var person = new Person("hunan" , 19);
+    console.log( person );
+
+//    Person.add = function(num1,num2){
+//        return num1 + num2 ;
+//    }
+//    console.log( person );
+
+    console.log( Object.keys( Person ) );
+
+//    console.log( Person.add( 1 , 2 ) );
+//    console.log( person.__proto__.add( 1 , 2 ) );
+</script>
+</body>
+</html>
