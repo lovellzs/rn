@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试js高级习题</title>
+</head>
+<body>
+<div id="demo"></div>
+    <script>
+//        function foo() {
+//            var num = 123;
+//            console.log(num); //?
+//        }
+//        foo();
+//        console.log(num); //?
+    </script>
+
+
+<script>
+//    var scope = "global";
+//
+//    foo();
+//
+//    function foo() {
+//
+//        console.log(scope); //？
+//        var scope = "local";
+//        console.log(scope); //？
+//    }
+</script>
+
+<script>
+//    function f1(){
+//        if("a" in window){
+//            var a = 10;
+//        }
+//        console.log(a); //?
+//    }
+//
+//    f1();
+</script>
+
+<script>
+//    if(!"b" in window){
+//        var b = 10;
+//    }
+//    console.log(b); //?
+</script>
+
+
+<script>
+//    var foo = 1;
+//    function bar() {
+//        if(!foo)
+//        {
+//            var foo = 10;
+//        }
+//        alert(foo); //?
+//    }
+//    bar();
+</script>
+
+<!--证明 两个脚本中的同名变量不做提升 -->
+<script>
+//    var aaaa = 10;
+//    console.log(bbb);
+</script>
+<script>
+//    console.log(aaaa);
+//    var bbb = 10;
+</script>
+
+
+<script>
+    function Fthis(){
+        return this;
+    }
+
+    function Fn(){
+        return {age:111}
+    }
+
+    var fth1 = new Fthis();
+    var fth2 = Fthis();
+    console.log( fth1 );
+    console.log( fth2 );
+
+    var fff = new Fn();
+    var aas = Fn();
+
+//    console.log( fff );
+//    console.log( aas );
+</script>
+
+
+<script>
+//    asada = 1000;
+//    function Foo() {
+//        getName = function(){
+//            console.log("1");
+//        };
+//        return this;
+//    }
+//    console.log(Foo.constructor == Function);//true
+//
+//    Foo.getName = function() {
+//        console.log("=====");
+//        console.log(this.asada);
+//        console.log("2");
+//    };
+//
+//    Foo.prototype.getName = function(){
+//        console.log("3");
+//    };
+</script>
+
+<script>
+
+    function Foo() {
+        getName = function(){
+            console.log("1");
+        };
+        return this;
+    }
+
+    Foo.getName = function() {
+        console.log("2");
+    };
+
+    Foo.prototype.getName = function(){
+        console.log("3");
+    };
+
+    var getName = function() {
+        console.log("4");
+    };
+
+    function getName(){
+        console.log("5");
+    }
+
+    Foo.getName(); // ? 2
+    getName(); // ? 4
+    Foo().getName(); //1
+    getName(); // ? 1
+    new Foo.getName(); // ? 2
+    new Foo().getName(); // ? 3
+    new new Foo().getName(); // ?3
+
+</script>
+
+
+
+
+</body>
+</html>

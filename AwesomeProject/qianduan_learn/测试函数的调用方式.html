@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试函数的调用方式</title>
+</head>
+<body>
+<div id="demo"></div>
+    <script>
+//        01 获取页面中id值为demo的标签
+//        var div = document.getElementById('demo');
+//        var getId = document.getElementById;
+//        var div = getId('demo');        //会报错?
+//        console.log(div);
+
+        //借用apply来修正this
+        document.getElementById = (function (func) {
+            return function () {
+                return func.apply(document,arguments);
+            }
+        })(document.getElementById);
+
+        var getId = document.getElementById;
+        var div = getId('demo');        //会报错?
+        console.log(div);
+
+
+//        console.log( document.getElementById('demo') );
+//        console.log( (document.getElementById)('demo') );
+//        var getId = document.getElementById;
+//        console.log( getId.apply(document,["demo"]) );
+//
+//        console.log( getId.call(document,"demo") );
+    </script>
+
+
+<script>
+    function getName(){
+        getName=function(){
+            return "bbb";
+        }
+        return "aaa";
+    }
+    console.log( getName() );
+    console.log( getName() );
+
+    function getAge(){
+        this.getAge=function(){
+            return 2;
+        };
+        return 1;
+    }
+    console.log( getAge() );
+    console.log( getAge() );
+</script>
+</body>
+</html>

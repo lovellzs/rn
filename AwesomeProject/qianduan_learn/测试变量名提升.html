@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试变量名提升</title>
+</head>
+<body>
+<script>
+
+//    console.log(a);                     //打印function
+//    function a() {
+//        console.log("我是一个函数");
+//    }
+//    var a = 20;
+//    console.log(a);                     //打印20
+
+
+    //变量和函数提升后的结果 错误
+//    function a() {
+//        console.log("我是一个函数");
+//    }
+//    var a ;
+//    console.log(a);
+//    a = 20;
+//    console.log(a);
+
+    //变量和函数提升后的结果 正确
+    function a() {
+        console.log("我是一个函数");
+    }
+    console.log(a);
+    var a = 20;
+    console.log(a);
+
+</script>
+
+</body>
+</html>
