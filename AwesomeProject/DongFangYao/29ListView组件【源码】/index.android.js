@@ -4,6 +4,7 @@
  */
 
 import React, { Component } from 'react';
+import {Navigator} from 'react-native-deprecated-custom-components';
 import {
     AppRegistry,
     StyleSheet,
@@ -11,7 +12,6 @@ import {
     Image,
     TouchableOpacity,
     ViewPagerAndroid,
-    Navigator,
     View
     } from 'react-native';
 
@@ -255,7 +255,7 @@ class WelcomeUI extends Component {
 }
 
 
-class DfyProject01 extends Component {
+class AwesomeProject extends Component {
   render() {
     let defaultName='WelcomeUI';
     let defaultComponent=WelcomeUI;
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
 });
 
 
-AppRegistry.registerComponent('DfyProject01', () => DfyProject01);
+AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
 
 
 

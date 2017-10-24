@@ -4,6 +4,7 @@
  */
 
 import React, { Component } from 'react';
+import {Navigator} from 'react-native-deprecated-custom-components';
 import {
     AppRegistry,
     StyleSheet,
@@ -11,7 +12,6 @@ import {
     Image,
     TouchableOpacity,
     ViewPagerAndroid,
-    Navigator,
     View
     } from 'react-native';
 
@@ -24,11 +24,12 @@ const PAGES=5;
 const BGCOLOR=['#fdc08e', '#fff6b9', '#99d1b7', '#dde5fe', '#f79273'];
 
 const IMAGE_URIS=[
-  'http://apod.nasa.gov/apod/image/1410/20141008tleBaldridge001h990.jpg',
-  'http://apod.nasa.gov/apod/image/1409/volcanicpillar_vetter_960.jpg',
-  'http://apod.nasa.gov/apod/image/1409/m27_snyder_960.jpg',
-  'http://apod.nasa.gov/apod/image/1409/PupAmulti_rot0.jpg',
-  'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png',
+    'http://img4.duitang.com/uploads/item/201602/07/20160207012133_8rYmd.jpeg',
+    'http://f.hiphotos.baidu.com/image/pic/item/0d338744ebf81a4c34ff042add2a6059242da600.jpg',
+    'http://h.hiphotos.baidu.com/image/pic/item/71cf3bc79f3df8dc6e3c4372c711728b461028d4.jpg',
+    'http://g.hiphotos.baidu.com/image/pic/item/c2cec3fdfc0392457020c9eb8d94a4c27c1e25b8.jpg',
+    'http://f.hiphotos.baidu.com/image/pic/item/e850352ac65c1038ce524121b8119313b07e8921.jpg',
+    'http://c.hiphotos.baidu.com/image/pic/item/4bed2e738bd4b31cfd502f5f8dd6277f9f2ff8e2.jpg',
 ];
 
 
@@ -248,7 +249,7 @@ class WelcomeUI extends Component {
 }
 
 
-class DfyProject01 extends Component {
+class AwesomeProject extends Component {
   render() {
     let defaultName='WelcomeUI';
     let defaultComponent=WelcomeUI;
@@ -326,4 +327,4 @@ const styles = StyleSheet.create({
 });
 
 
-AppRegistry.registerComponent('DfyProject01', () => DfyProject01);
+AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);

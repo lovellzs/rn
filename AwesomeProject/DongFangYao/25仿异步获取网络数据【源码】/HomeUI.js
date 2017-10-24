@@ -15,9 +15,6 @@ import {
     View,
     } from 'react-native';
 
-
-
-
 /**
  * 为了避免骚扰，我们用了一个样例数据来替代Rotten Tomatoes的API
  * 请求，这个样例数据放在React Native的Github库中。
@@ -53,7 +50,6 @@ export default class HomeUI extends Component{
 
     }
 
-
     renderLoadingView() {
         return (
             <View style={styles.container}>
@@ -63,8 +59,6 @@ export default class HomeUI extends Component{
             </View>
         );
     }
-
-
 
 //这是渲染一个电影信息
     renderMovie(movie) {
@@ -101,10 +95,7 @@ export default class HomeUI extends Component{
             .done();
         //调用了done() —— 这样可以抛出异常而不是简单忽略
     }
-
-
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -132,8 +123,6 @@ const styles = StyleSheet.create({
     year: {
         textAlign: 'center',
     },
-
-
 
 });
 

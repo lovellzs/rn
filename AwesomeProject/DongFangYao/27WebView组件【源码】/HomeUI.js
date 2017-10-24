@@ -11,10 +11,9 @@ import {
     Image,
     WebView,
     View,
-    } from 'react-native';
+} from 'react-native';
 
 import Dimensions from 'Dimensions';
-
 
 const width=Dimensions.get('window').width;
 const height=Dimensions.get('window').height;
@@ -26,37 +25,21 @@ export default class HomeUI extends Component{
 
     }
 
-
-
     render(){
-
-
         return (
-
             <View style={styles.flex}>
-            <WebView
-                style={{height:height,width:width}}
-                source={{uri:'http://m.chinanxh.com'}}
-                injectedJavaScript={"alert('我是东方耀')"}
+                <WebView
+                    style={{ height:height,width:width }}
+                    source={{uri:'https://www.hao123.com'}}
+                    injectedJavaScript={"alert('我是东方耀')"}
                 ></WebView>
             </View>
-
-
         );
-
     }
-
-
-
-
 }
 
-
 const styles = StyleSheet.create({
-
     flex:{
         flex:1,
     },
-
 });
-
