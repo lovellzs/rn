@@ -48,24 +48,31 @@ export default class AwesomeProject extends Component {
         );
     }
     componentWillMount(){
-        DeviceEventEmitter.addListener('keyboardWillShow', function(e: Event) {
-            console.log( "keyboardWillShow  === " );
+        this.listener = DeviceEventEmitter.addListener('keyboardWillShow', function(e:Event ) {
+            console.log( e );
+            alert( "11111" + !!e.aaa?e.aaa:e.name );
         });
     }
+
+    componentWillUnmount(){
+        // 移除 一定要写
+        this.listener.remove();
+    }
+
     render() {
         return (
             <View style={styles.container} >
                 <Text style={styles.welcome} onPress={ this.show.bind(this,"dadad") }>
                     横看成岭侧成峰,远近高低各不同
                 </Text>
-                <Text style={styles.instructions}>
+                <Text style={styles.instructions} onPress={ ()=>{ DeviceEventEmitter.emit('keyboardWillShow', {name:"zhangsan",age:19}); } }>
                     要使劲的摇
                 </Text>
                 <Text style={styles.instructions} onPress={ this.mLayout.bind(this) }>
                     我得意地笑{'\n'}
                     我得意地笑{'\n'}
                     我得意地笑{'\n'}
-                    啊啊 啊  爱的
+                    啊  啊 啊爱的
                     我艹
                 </Text>
             </View>
