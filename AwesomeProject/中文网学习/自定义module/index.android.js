@@ -4,16 +4,16 @@
  * @flow
  */
 
+import ToastExample from './ToastExample';
 import React, { Component } from 'react';
 import {
-    DeviceEventEmitter,
     Platform,
     AppRegistry,
     StyleSheet,
     Text,
     View
 } from 'react-native';
-import {ToastExample,UIManager} from './ToastExample';
+
 
 if( !!Platform.Version ){
     console.log("当前api level是" + Platform.Version);
@@ -25,47 +25,24 @@ if( !!Platform.Version ){
 
 export default class AwesomeProject extends Component {
 
-    constructor(props){
-        super(props);
+    show(){
+        ToastExample.show('Awesome', ToastExample.SHORT);
     }
 
-    show(txt){
-        console.log("=========show====");
-        ToastExample.show(txt, ToastExample.SHORT);
-    }
-
-    mLayout(){
-        UIManager.measureLayout(
-            100,
-            100,
-            (msg) => {
-                console.log(msg);
-
-            },
-            (x, y, width, height) => {
-                console.log(x + ':' + y + ':' + width + ':' + height);
-            }
-        );
-    }
-    componentWillMount(){
-        DeviceEventEmitter.addListener('keyboardWillShow', function(e: Event) {
-            console.log( "keyboardWillShow  === " );
-        });
-    }
     render() {
         return (
-            <View style={styles.container} >
-                <Text style={styles.welcome} onPress={ this.show.bind(this,"dadad") }>
+            <View style={styles.container} onPress={ this.show }>
+                <Text style={styles.welcome}>
                     横看成岭侧成峰,远近高低各不同
                 </Text>
                 <Text style={styles.instructions}>
                     要使劲的摇
                 </Text>
-                <Text style={styles.instructions} onPress={ this.mLayout.bind(this) }>
+                <Text style={styles.instructions}>
                     我得意地笑{'\n'}
                     我得意地笑{'\n'}
                     我得意地笑{'\n'}
-                    啊啊 啊  爱的
+                    啊啊啊  爱的
                     我艹
                 </Text>
             </View>
