@@ -11,9 +11,10 @@ import {
     AppRegistry,
     StyleSheet,
     Text,
-    View
+    View,
+    Image
 } from 'react-native';
-import {ToastExample,UIManager} from './ToastExample';
+import ImageView from './ImageView.js';
 
 if( !!Platform.Version ){
     console.log("当前api level是" + Platform.Version);
@@ -27,54 +28,41 @@ export default class AwesomeProject extends Component {
 
     constructor(props){
         super(props);
+        this.state={
+            desc:"desc"
+        }
     }
 
-    show(txt){
-        console.log("=========show====");
-        ToastExample.show(txt, ToastExample.SHORT);
-    }
-
-    mLayout(){
-        UIManager.measureLayout(
-            100,
-            100,
-            (msg) => {
-                console.log(msg);
-
-            },
-            (x, y, width, height) => {
-                console.log(x + ':' + y + ':' + width + ':' + height);
-            }
-        );
-    }
     componentWillMount(){
-        this.listener = DeviceEventEmitter.addListener('keyboardWillShow', function(e:Event ) {
-            console.log( e );
-            alert( "11111" + !!e.aaa?e.aaa:e.name );
-        });
     }
 
     componentWillUnmount(){
-        // 移除 一定要写
-        this.listener.remove();
     }
 
     render() {
         return (
             <View style={styles.container} >
-                <Text style={styles.welcome} onPress={ this.show.bind(this,"dadad") }>
-                    横看成岭侧成峰,远近高低各不同
+                <Text style={styles.welcome} >
+
+                    横看成岭侧成峰,远近高低各不同{"\n"}
+                    不识庐山真面目,只缘身在此山中{"\n"}
                 </Text>
-                <Text style={styles.instructions} onPress={ ()=>{ DeviceEventEmitter.emit('keyboardWillShow', {name:"zhangsan",age:19}); } }>
-                    要使劲的摇
-                </Text>
-                <Text style={styles.instructions} onPress={ this.mLayout.bind(this) }>
-                    我得意地笑{'\n'}
-                    我得意地笑{'\n'}
-                    我得意地笑{'\n'}
-                    啊  啊 啊爱的
-                    我艹
-                </Text>
+                <View style={{width:200,height:150}}>
+
+                    <ImageView style={styles.img}
+                           resizeMode="contain"
+                           src={ [{uri:'ic_launcher'}]}
+                    />
+
+                </View>
+                <View style={{width:200,height:150}}>
+
+                    <ImageView style={styles.img}
+                               resizeMode="contain"
+                               src={ [{uri:'http://img4.duitang.com/uploads/item/201602/07/20160207012133_8rYmd.jpeg'}]}
+                    />
+
+                </View>
             </View>
         );
     }
@@ -96,6 +84,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#333333',
         marginBottom: 5,
+    },
+    img:{
+        height:150,
+        width:200,
     },
 });
 

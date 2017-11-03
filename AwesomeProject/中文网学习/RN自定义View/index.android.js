@@ -4,16 +4,16 @@
  * @flow
  */
 
-import ToastExample from './ToastExample';
 import React, { Component } from 'react';
 import {
+    DeviceEventEmitter,
     Platform,
     AppRegistry,
     StyleSheet,
     Text,
     View
 } from 'react-native';
-
+// import {ToastExample,UIManager} from './ToastExample';
 
 if( !!Platform.Version ){
     console.log("当前api level是" + Platform.Version);
@@ -25,25 +25,24 @@ if( !!Platform.Version ){
 
 export default class AwesomeProject extends Component {
 
-    show(){
-        ToastExample.show('Awesome', ToastExample.SHORT);
+    constructor(props){
+        super(props);
+        this.state={
+            desc:"desc"
+        }
+    }
+
+    componentWillMount(){
+    }
+
+    componentWillUnmount(){
     }
 
     render() {
         return (
-            <View style={styles.container} onPress={ this.show }>
-                <Text style={styles.welcome}>
+            <View style={styles.container} >
+                <Text style={styles.welcome} >
                     横看成岭侧成峰,远近高低各不同
-                </Text>
-                <Text style={styles.instructions}>
-                    要使劲的摇
-                </Text>
-                <Text style={styles.instructions}>
-                    我得意地笑{'\n'}
-                    我得意地笑{'\n'}
-                    我得意地笑{'\n'}
-                    啊啊啊  爱的
-                    我艹
                 </Text>
             </View>
         );

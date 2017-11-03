@@ -5,9 +5,13 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.shell.MainReactPackage;
+import com.facebook.react.uimanager.ViewManager;
+import com.facebook.react.views.image.ReactImageManager;
 import com.facebook.soloader.SoLoader;
 
+import com.sz.customview.ReactImageUIReactpackage;
 import com.sz.module.ToastModuleReactPackage;
 import com.sz.module.UIManagerModuleReactPackage;
 
@@ -26,6 +30,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
               new MainReactPackage(),
+
+              new ReactImageUIReactpackage(),
+
               new UIManagerModuleReactPackage(),
               new ToastModuleReactPackage()); // <-- 添加这一行，类名替换成你的Package类的名字.
     }
