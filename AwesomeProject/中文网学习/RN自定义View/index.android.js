@@ -11,9 +11,10 @@ import {
     AppRegistry,
     StyleSheet,
     Text,
-    View
+    View,
+    Image
 } from 'react-native';
-// import {ToastExample,UIManager} from './ToastExample';
+import ImageView from './ImageView.js';
 
 if( !!Platform.Version ){
     console.log("当前api level是" + Platform.Version);
@@ -42,8 +43,26 @@ export default class AwesomeProject extends Component {
         return (
             <View style={styles.container} >
                 <Text style={styles.welcome} >
-                    横看成岭侧成峰,远近高低各不同
+
+                    横看成岭侧成峰,远近高低各不同{"\n"}
+                    不识庐山真面目,只缘身在此山中{"\n"}
                 </Text>
+                <View style={{width:200,height:150}}>
+
+                    <ImageView style={styles.img}
+                               resizeMode="contain"
+                               src={ [{uri:'ic_launcher'}]}
+                    />
+
+                </View>
+                <View style={{width:200,height:150}}>
+
+                    <ImageView style={styles.img}
+                               resizeMode="contain"
+                               src={ [{uri:'http://img4.duitang.com/uploads/item/201602/07/20160207012133_8rYmd.jpeg'}]}
+                    />
+
+                </View>
             </View>
         );
     }
@@ -65,6 +84,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#333333',
         marginBottom: 5,
+    },
+    img:{
+        height:150,
+        width:200,
     },
 });
 

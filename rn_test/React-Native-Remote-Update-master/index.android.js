@@ -25,9 +25,8 @@ export default class DoubanMovie extends Component {
         return (
             <View style={styles.container} >
                 <Text style={styles.welcome} >
-
-                    横看成岭侧成峰, 远近高低各不同{"\n"}
-                    不识庐山真面目, 只缘身在此山中{"\n"}
+                    乘风破浪会有时{"\n"}
+                    直挂云帆济沧海{"\n"}
                 </Text>
             </View>
         );

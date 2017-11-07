@@ -1,6 +1,5 @@
 package com.sztest;
 
-import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,21 +12,21 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
-import com.facebook.react.LifecycleState;
+import com.facebook.react.JSCConfig;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactInstanceManager;
-import com.facebook.react.ReactPackage;
+import com.facebook.react.ReactInstanceManagerBuilder;
 import com.facebook.react.ReactRootView;
 import com.facebook.react.bridge.JSBundleLoader;
 import com.facebook.react.bridge.JSCJavaScriptExecutor;
 import com.facebook.react.bridge.JavaScriptExecutor;
-import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
+import com.facebook.react.common.LifecycleState;
 import com.facebook.react.shell.MainReactPackage;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
 
 /**
  * Base react native which can load js bundle file from remote server to update
@@ -38,7 +37,8 @@ public class BaseReactActivity extends ReactActivity {
 
     private static final String TAG = "BaseReactActivity";
 
-    public static final String JS_BUNDLE_REMOTE_URL = "https://raw.githubusercontent.com/fengjundev/React-Native-Remote-Update/master/remote/index.android.bundle";
+//    public static final String JS_BUNDLE_REMOTE_URL = "https://raw.githubusercontent.com/fengjundev/React-Native-Remote-Update/master/remote/index.android.bundle";
+    public static final String JS_BUNDLE_REMOTE_URL = "https://lovellzs.github.io/qianduan/index.android.bundle";
     public static final String JS_BUNDLE_LOCAL_FILE = "index.android.bundle";
     public static final String JS_BUNDLE_LOCAL_PATH = Environment.getExternalStorageDirectory().toString() + File.separator + JS_BUNDLE_LOCAL_FILE;
 
@@ -47,19 +47,10 @@ public class BaseReactActivity extends ReactActivity {
     private CompleteReceiver mDownloadCompleteReceiver;
     private long mDownloadId;
 
+
     @Override
     protected String getMainComponentName() {
         return "DoubanMovie";
-    }
-
-    @Override
-    protected boolean getUseDeveloperSupport() {
-        return false;
-    }
-
-    @Override
-    protected List<ReactPackage> getPackages() {
-        return null;
     }
 
     @Override
@@ -77,7 +68,7 @@ public class BaseReactActivity extends ReactActivity {
     }
 
     private void iniReactRootView() {
-        ReactInstanceManager.Builder builder = ReactInstanceManager.builder()
+        ReactInstanceManagerBuilder bulder = getReactInstanceManager().builder()
                 .setApplication(getApplication())
                 .setJSMainModuleName("index.android")
                 .addPackage(new MainReactPackage())
@@ -85,15 +76,15 @@ public class BaseReactActivity extends ReactActivity {
 
         File file = new File(JS_BUNDLE_LOCAL_PATH);
         if(file != null && file.exists()){
-            builder.setJSBundleFile(JS_BUNDLE_LOCAL_PATH);
+            bulder.setJSBundleFile(JS_BUNDLE_LOCAL_PATH);
             Log.i(TAG, "load bundle from local cache");
         }else{
-            builder.setBundleAssetName(JS_BUNDLE_LOCAL_FILE);
+            bulder.setBundleAssetName(JS_BUNDLE_LOCAL_FILE);
             Log.i(TAG, "load bundle from asset");
         }
 
         mReactRootView = new ReactRootView(this);
-        mReactInstanceManager = builder.build();
+        mReactInstanceManager = getReactInstanceManager();
         mReactRootView.startReactApplication(mReactInstanceManager, "DoubanMovie", null);
 
     }
@@ -149,12 +140,19 @@ public class BaseReactActivity extends ReactActivity {
         Toast.makeText(BaseReactActivity.this, "Downloading complete", Toast.LENGTH_SHORT).show();
         try {
             Class<?> RIManagerClazz = mReactInstanceManager.getClass();
+
+            Field  field_mJSCConfig = RIManagerClazz.getDeclaredField("mJSCConfig");
+            field_mJSCConfig.setAccessible(true);
+            JSCConfig mJSCConfig = (JSCConfig)field_mJSCConfig.get(mReactInstanceManager);
+
             Method method = RIManagerClazz.getDeclaredMethod("recreateReactContextInBackground",
-                    JavaScriptExecutor.class, JSBundleLoader.class);
+                    JavaScriptExecutor.Factory.class, JSBundleLoader.class);
             method.setAccessible(true);
+
             method.invoke(mReactInstanceManager,
-                    new JSCJavaScriptExecutor(),
-                    JSBundleLoader.createFileLoader(getApplicationContext(), JS_BUNDLE_LOCAL_PATH));
+                    new JSCJavaScriptExecutor.Factory( mJSCConfig.getConfigMap() ),
+                    JSBundleLoader.createFileLoader(JS_BUNDLE_LOCAL_PATH));
+
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -163,51 +161,53 @@ public class BaseReactActivity extends ReactActivity {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+        } catch (NoSuchFieldException e){
+            e.printStackTrace();
         }
     }
 
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_MENU && mReactInstanceManager != null) {
-            mReactInstanceManager.showDevOptionsDialog();
-            return true;
-        }
-        return super.onKeyUp(keyCode, event);
-    }
+//    @Override
+//    public boolean onKeyUp(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_MENU && mReactInstanceManager != null) {
+//            mReactInstanceManager.showDevOptionsDialog();
+//            return true;
+//        }
+//        return super.onKeyUp(keyCode, event);
+//    }
 
-    @Override
-    public void onBackPressed() {
-        if (mReactInstanceManager != null) {
-            mReactInstanceManager.onBackPressed();
-        } else {
-            super.onBackPressed();
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        if (mReactInstanceManager != null) {
+//            mReactInstanceManager.onBackPressed();
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
 
-    @Override
-    public void invokeDefaultOnBackPressed() {
-        super.onBackPressed();
-    }
+//    @Override
+//    public void invokeDefaultOnBackPressed() {
+//        super.onBackPressed();
+//    }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//
+//        if (mReactInstanceManager != null) {
+//            mReactInstanceManager.onPause();
+//        }
+//    }
 
-        if (mReactInstanceManager != null) {
-            mReactInstanceManager.onPause();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mReactInstanceManager != null) {
-            mReactInstanceManager.onResume(this, new DefaultHardwareBackBtnHandler() {
-                @Override
-                public void invokeDefaultOnBackPressed() {
-                    finish();
-                }
-            });
-        }
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        if (mReactInstanceManager != null) {
+//            mReactInstanceManager.onResume(this, new DefaultHardwareBackBtnHandler() {
+//                @Override
+//                public void invokeDefaultOnBackPressed() {
+//                    finish();
+//                }
+//            });
+//        }
+//    }
 }
