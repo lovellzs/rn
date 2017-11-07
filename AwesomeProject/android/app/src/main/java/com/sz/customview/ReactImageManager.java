@@ -39,6 +39,8 @@ public class ReactImageManager extends SimpleViewManager<ReactImageView>{
 //        JSBundleLoader
 //        JavaScriptExecutor.Factory.class
 
+//        UIManagerModuleConstants.ACTION_DISMISSED;
+
         return new ReactImageView( reactContext, Fresco.newDraweeControllerBuilder(),  Fresco.newDraweeControllerBuilder().getCallerContext() );
     }
 

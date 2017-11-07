@@ -44,14 +44,14 @@ export default class AwesomeProject extends Component {
             <View style={styles.container} >
                 <Text style={styles.welcome} >
 
-                    横看成岭侧成峰,远近高低各不同{"\n"}
-                    不识庐山真面目,只缘身在此山中{"\n"}
+                    横看成岭侧成峰, 远近高低各不同{"\n"}
+                    不识庐山真面目, 只缘身在此山中{"\n"}
                 </Text>
                 <View style={{width:200,height:150}}>
 
                     <ImageView style={styles.img}
                                resizeMode="contain"
-                               src={ [{uri:'ic_launcher'}]}
+                               src={ [{uri:'ic_launcher'}] }
                     />
 
                 </View>
