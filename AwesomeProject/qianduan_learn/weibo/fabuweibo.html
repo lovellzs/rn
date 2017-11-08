@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/weibo.css">
+    <!--<script src="js/ajax3.js"></script>-->
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/ajax(self).js"></script>
+</head>
+<body>
+<div class="xmgArea">
+    <!--留言-->
+    <div class="takeComment">
+        <textarea name="textarea" class="takeTextField" id="submitText"></textarea>
+        <div class="takeSbmComment">
+            <input id="btn_send" type="button" class="inputs" value=""/>
+        </div>
+    </div>
+    <!--预留-->
+    <div class="commentOn">
+        <div id="messList" class="messList">
+            <!--<div class="reply">-->
+            <!--<p class="replyContent">显示的内容</p>-->
+            <!--<p class="operation">-->
+            <!--<span class="replyTime">2011-09-08 16:37:60</span>-->
+            <!--<span class="handle">-->
+            <!--<a href="javascript:;" class="top">0</a>-->
+            <!--<a href="javascript:;" class="down_icon">0</a>-->
+            <!--<a href="javascript:;" class="cut">删除</a>-->
+            <!--</span>-->
+            <!--</p>-->
+            <!--</div>-->
+        </div>
+        <div id="page" class="page">
+            <!--<a href="javascript:;" class="active">1</a>-->
+            <!--<a href="javascript:;">2</a>-->
+            <!--<a href="javascript:;">3</a>-->
+        </div>
+    </div>
+</div>
+<script>
+    var btn = document.getElementById('btn_send');
+    var oMsg=$('#messList');
+
+    btn.onclick = function () {
+        var text = $('#submitText').val();
+
+        //请求路径：weibo.php?act=add&content=xxx
+        //参数：act=add&cccc=xxx
+        //方法：GET
+        //返回值：{error:0, id: 新添加内容的ID, time: 添加时间}
+        Ajax({
+            url: 'php/weibo.php',
+            type: 'get',
+            objT: {
+                act: "add",
+                "content": 'xxx'
+            },
+            success: function (str) {
+//                console.log('成功'+str.responseText);
+//                var objM = eval( "("+str.responseText +")" );
+//                console.log(objM['time']);
+                var obj=str.responseText;
+                console.log(obj);
+
+
+                $('#submitText').val('');
+
+
+                //创建标签,更新UI:
+                var newDiv=createEle(text);
+
+                oMsg.prepend(newDiv);
+
+                if(oMsg.children().length>6){
+                    oMsg.children().last().remove()
+                }
+
+            },
+            error: function () {
+                console.log('请求失败');
+            }
+        })
+    };
+
+//创建标签的工具方法:
+    function createEle(text) {
+        var odiv = $('<div></div>');
+        var html = '<p class="replyContent">'+text+'</p>'+
+            '<p class="operation">'+
+                '<span class="replyTime">2017.11.8</span>'+
+                '<span class="handle">'+
+                    '<a href="javascript:;" class="top">'+0+'</a>'+
+                    '<a href="javascript:;" class="down_icon">'+0+'</a>'+
+                    '<a href="javascript:;" class="cut">删除</a>'+
+                '</span>'+
+            '</p>';
+        odiv.html(html);
+        odiv.addClass('ready');
+        return odiv;
+    }
+
+</script>
+</body>
+</html>
