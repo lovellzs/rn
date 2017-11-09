@@ -24,10 +24,10 @@ class Blink extends Component {
 
             if( this.state.num >=10 ){
                 BackHandler.exitApp();
-                return false ;
+                return true ;  //此处 return false  会多打印一次num  至今不解
             }
 
-            console.log( this.state.num++ );
+            console.log( ++this.state.num );
             return true;
         });
     }
