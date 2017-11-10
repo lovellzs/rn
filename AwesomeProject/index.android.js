@@ -3,70 +3,94 @@
 var React = require('react');
 var ReactNative = require('react-native');
 var {
-    PixelRatio,
-    Dimensions,
     AppRegistry,
-    DatePickerAndroid,
+    StyleSheet,
     View,
     Text,
+    TouchableHighlight,
+    Vibration,
+    Platform,
 } = ReactNative;
 
-var DatePickerAndroidExample = React.createClass({
+
+var pattern, patternLiteral, patternDescription;
+if (Platform.OS === 'android') {
+    pattern = [0, 500, 200, 500];
+    patternLiteral = '[0, 500, 200, 500]';
+    patternDescription = `${patternLiteral}
+arg 0: duration to wait before turning the vibrator on.
+arg with odd: vibration length.
+arg with even: duration to wait before next vibration.
+`;
+} else {
+    pattern = [0, 1000, 2000, 3000];
+    patternLiteral = '[0, 1000, 2000, 3000]';
+    patternDescription = `${patternLiteral}
+vibration length on iOS is fixed.
+pattern controls durations BETWEEN each vibration only.
+
+arg 0: duration to wait before turning the vibrator on.
+subsequent args: duration to wait before next vibrattion.
+`;
+}
+
+var VibrationExample = React.createClass({
     getInitialState() {
         return {
-            content: 'Content will appear here',
-            width:0,
-            height:0,
-            scale:1
+            content: 'Content will appear here'
         };
     },
 
-    async _setDate(){
+    async _setClipboardContent(){
+        Clipboard.setString('Hello World');
         try {
-            const {action, year, month, day} = await DatePickerAndroid.open({
-                // 要设置默认值为今天的话，使用`new Date()`即可。
-                // 下面显示的会是2020年5月25日。月份是从0开始算的。
-                date: new Date(2020, 4, 25)
-            });
-            if (action !== DatePickerAndroid.dismissedAction) {
-                // 这里开始可以处理用户选好的年月日三个参数：year, month (0-11), day
-                let content = year + "年"+ (month+1) + "月" + day +"日"
-
-                var {height, width} = Dimensions.get('window');
-                var scale = PixelRatio.get();
-                this.setState({width,height,scale,content});
-            }
-        } catch ({code, message}) {
-            console.warn('Cannot open date picker', message);
+            var content = await Clipboard.getString();
+            this.setState({content});
+        } catch (e) {
+            this.setState({content:e.message});
         }
     },
 
     render() {
         return (
             <View>
-                <Text onPress={this._setDate} style={{color: 'blue'}}>
-                    Tap to put "Hello World" in the setdate
-                </Text>
-                <Text style={{color: 'red', marginTop: 20}}>
-                    {this.state.content}{'\n\n'}
-                    width{this.state.width}{'\n\n'}
-                    height{this.state.height}{'\n\n'}
-                    scale{this.state.scale}
-                </Text>
+                <TouchableHighlight
+                    style={styles.wrapper}
+                    onPress={() => Vibration.vibrate()}>
+                    <View style={styles.button}>
+                        <Text>Vibrate</Text>
+                    </View>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                    style={styles.wrapper}
+                    onPress={() => Vibration.vibrate(pattern, true)}>
+                    <View style={styles.button}>
+                        <Text>Vibrate until cancel</Text>
+                    </View>
+                </TouchableHighlight>
+
+                <TouchableHighlight
+                    style={styles.wrapper}
+                    onPress={() => Vibration.cancel()}>
+                    <View style={styles.button}>
+                        <Text>Cancel</Text>
+                    </View>
+                </TouchableHighlight>
             </View>
         );
     }
 });
 
-// exports.title = 'Clipboard';
-// exports.description = 'Show Clipboard contents.';
-// exports.examples = [
-//     {
-//         title: 'Clipboard.setString() and getString()',
-//         render() {
-//             return <ClipboardExample/>;
-//         }
-//     }
-// ];
+var styles = StyleSheet.create({
+    wrapper: {
+        borderRadius: 5,
+        marginBottom: 5,
+    },
+    button: {
+        backgroundColor: '#eeeeee',
+        padding: 10,
+    },
+});
 
-AppRegistry.registerComponent("AwesomeProject",()=>DatePickerAndroidExample)
+AppRegistry.registerComponent("AwesomeProject",()=>VibrationExample)

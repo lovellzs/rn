@@ -6,6 +6,7 @@ var {
     PixelRatio,
     Dimensions,
     AppRegistry,
+    TimePickerAndroid,
     DatePickerAndroid,
     View,
     Text,
@@ -30,7 +31,7 @@ var DatePickerAndroidExample = React.createClass({
             });
             if (action !== DatePickerAndroid.dismissedAction) {
                 // 这里开始可以处理用户选好的年月日三个参数：year, month (0-11), day
-                let content = year + "年"+ (month+1) + "月" + day +"日"
+                let content = year + "年"+ (month+1) + "月" + day +"日" ;
 
                 var {height, width} = Dimensions.get('window');
                 var scale = PixelRatio.get();
@@ -41,11 +42,33 @@ var DatePickerAndroidExample = React.createClass({
         }
     },
 
+
+    async _setTime(){
+        try {
+            const {action, hour, minute} = await TimePickerAndroid.open({
+                hour: 14,
+                minute: 0,
+                is24Hour: true, // 会显示为'2 PM'   // 没有秒
+            });
+            if (action !== TimePickerAndroid.dismissedAction) {
+                // 这里开始可以处理用户选好的时分两个参数：hour (0-23), minute (0-59)
+
+                let content = hour + "时"+ minute + "分";
+                this.setState({ content });
+            }
+        } catch ({code, message}) {
+            console.warn('Cannot open time picker', message);
+        }
+    },
+
     render() {
         return (
             <View>
                 <Text onPress={this._setDate} style={{color: 'blue'}}>
                     Tap to put "Hello World" in the setdate
+                </Text>
+                <Text onPress={this._setTime} style={{color: 'gray'}}>
+                    Tap to put "Hello World" in the settime
                 </Text>
                 <Text style={{color: 'red', marginTop: 20}}>
                     {this.state.content}{'\n\n'}
