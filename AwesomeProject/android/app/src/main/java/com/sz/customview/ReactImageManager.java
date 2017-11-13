@@ -53,8 +53,7 @@ public class ReactImageManager extends SimpleViewManager<ReactImageView>{
     public void setResizeMode(ReactImageView view, @Nullable String resizeMode) {
         view.setScaleType(ImageResizeMode.toScaleType(resizeMode));
     }
-
-
+    
     @ReactProp(name = "src")
     public void setSrc(ReactImageView view, @Nullable ReadableArray src) {
         view.setSource(src);

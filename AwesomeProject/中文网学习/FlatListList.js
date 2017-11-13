@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import {
     AppRegistry,
-    FlatList,
+    FlatList,RefreshControl,
     StyleSheet,
     Text, View ,
     TextInput,Button,
@@ -47,7 +47,7 @@ class AwesomeProject extends Component {
             <TouchableOpacity
                 activeOpacity={0.5}
                 onPress={this.itemClick.bind(this, item, index)}>
-                <Text style={flatListStyles.item}>{item.name}</Text>
+                <Text style={ [flatListStyles.item,{color:index==0?"red":"black"}]}>{item.name}</Text>
             </TouchableOpacity>
         );
     }
@@ -115,31 +115,46 @@ class AwesomeProject extends Component {
                     onEndReachedThreshold={0.1}
                     //当列表被滚动到距离内容最底部不足onEndReachedThreshold的距离时调用
                     onEndReached={({distanceFromEnd}) => (
-            setTimeout(() => {
-              this.setState((state) => ({
-                data: state.data.concat(this._newData),
-              }));
-            }, 3000)
-          )}
+                        setTimeout(() => {
+                            this.setState((state) => ({
+                                data: state.data.concat(this._newData),
+                            }));
+                        }, 3000)
+                    )}
                     refreshing={this.state.refreshing}
                     onRefresh={() => {
-            this.setState({refreshing: true})//开始刷新
-            //这里模拟请求网络，拿到数据，3s后停止刷新
-            setTimeout(() => {
-              alert('没有可刷新的内容！');
-              this.setState({refreshing: false});
-            }, 3000);
-          }}
+                        this.setState({refreshing: false})//开始刷新
+                        //这里模拟请求网络，拿到数据，3s后停止刷新
+                        setTimeout(() => {
+                            alert('没有可刷新的内容！');
+                            this.setState({refreshing: false});
+                        }, 3000);
+                    }}
                     renderItem={this._renderItem}
+
+
+                    /**
+                    * 和 onRefresh  冲突
+                    * */
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            // onRefresh={this._onRefresh}
+                            colors={['#ff0000', '#00ff00','#0000ff','#3ad564']}
+                            progressBackgroundColor="#ffffff"
+                            title={this.state.refreshing? '刷新中....':'下拉刷新'}
+                            color="#ff0000"
+                        />
+                    }
                 />
             </View>
         );
     }
-}
-;
+};
+
 
 class ItemDivideComponent
-extends Component {
+    extends Component {
     render() {
         return (
             <View style={{height: 1, backgroundColor: 'skyblue'}}/>
