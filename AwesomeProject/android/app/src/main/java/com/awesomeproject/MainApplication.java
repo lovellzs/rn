@@ -15,6 +15,8 @@ import com.sz.customview.ReactImageUIReactpackage;
 import com.sz.module.ToastModuleReactPackage;
 import com.sz.module.UIManagerModuleReactPackage;
 
+import org.lovebing.reactnative.baidumap.BaiduMapPackage;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
               new MainReactPackage(),
+              new BaiduMapPackage(getApplicationContext()),
 
               new ReactImageUIReactpackage(),
 
