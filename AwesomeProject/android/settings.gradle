@@ -3,5 +3,6 @@ rootProject.name = 'AwesomeProject'
 include ':app'
 
 
+//添加第三方底图库  react-native-baidu-map
 include ':react-native-baidu-map'
-project(':react-native-baidu-map').projectDir = new File(settingsDir, '../node_modules/react-native-baidu-map/android')
+project(':react-native-baidu-map').projectDir = new File(settingsDir, '../../rn_third_sdk/react-native-baidu-map/android')

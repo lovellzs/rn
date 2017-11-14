@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/apple/projects/rn/AwesomeProject/thirdSDK/react-native-baidu-map/android/build/intermediates/res/merged/androidTest/debug/drawable-v23/abc_control_background_material.xml",
+        "source": "/Users/apple/projects/rn/AwesomeProject/thirdSDK/react-native-baidu-map/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/drawable-v23/abc_control_background_material.xml"
+    },
+    {
+        "merged": "/Users/apple/projects/rn/rn_third_sdk/react-native-baidu-map/android/build/intermediates/res/merged/androidTest/debug/drawable-v23/abc_control_background_material.xml",
+        "source": "/Users/apple/projects/rn/rn_third_sdk/react-native-baidu-map/android/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/drawable-v23/abc_control_background_material.xml"
+    }
+]

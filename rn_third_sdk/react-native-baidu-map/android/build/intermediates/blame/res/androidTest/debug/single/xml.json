@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/apple/projects/rn/rn_third_sdk/react-native-baidu-map/android/build/intermediates/res/merged/androidTest/debug/xml/preferences.xml",
+        "source": "/Users/apple/projects/rn/rn_third_sdk/react-native-baidu-map/android/build/intermediates/exploded-aar/com.facebook.react/react-native/0.47.1/res/xml/preferences.xml"
+    },
+    {
+        "merged": "/Users/apple/projects/rn/AwesomeProject/thirdSDK/react-native-baidu-map/android/build/intermediates/res/merged/androidTest/debug/xml/preferences.xml",
+        "source": "/Users/apple/projects/rn/AwesomeProject/thirdSDK/react-native-baidu-map/android/build/intermediates/exploded-aar/com.facebook.react/react-native/0.47.1/res/xml/preferences.xml"
+    }
+]
