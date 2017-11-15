@@ -44,7 +44,7 @@
 
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.szapp.activity.MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize">
@@ -65,6 +65,8 @@
                     android:scheme="sz" />
             </intent-filter>
         </activity>
+        <activity android:name="com.szapp.activity.AboutActivity" />
+        <activity android:name="com.szapp.activity.SplashActivity" />
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
 

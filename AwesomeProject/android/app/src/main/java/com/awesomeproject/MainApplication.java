@@ -12,6 +12,7 @@ import com.facebook.react.views.image.ReactImageManager;
 import com.facebook.soloader.SoLoader;
 
 import com.sz.customview.ReactImageUIReactpackage;
+import com.sz.module.CustomAppModuleReactPackage;
 import com.sz.module.ToastModuleReactPackage;
 import com.sz.module.UIManagerModuleReactPackage;
 
@@ -37,6 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
               new ReactImageUIReactpackage(),
 
               new UIManagerModuleReactPackage(),
+              new CustomAppModuleReactPackage(),
               new ToastModuleReactPackage()); // <-- 添加这一行，类名替换成你的Package类的名字.
     }
   };

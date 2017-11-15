@@ -1,4 +1,4 @@
-package com.awesomeproject;
+package com.szapp.activity;
 
 import com.facebook.react.ReactActivity;
 
@@ -12,4 +12,5 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "AwesomeProject";
     }
+
 }
