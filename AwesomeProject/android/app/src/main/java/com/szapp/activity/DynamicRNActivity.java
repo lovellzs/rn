@@ -1,5 +1,9 @@
 package com.szapp.activity;
 
+import android.text.TextUtils;
+
+import com.awesomeproject.MainApplication;
+import com.baidu.mapapi.map.Text;
 import com.facebook.react.ReactActivity;
 
 public class DynamicRNActivity extends ReactActivity {
@@ -10,6 +14,14 @@ public class DynamicRNActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "AwesomeProject";
+
+        String curPage = (String)MainApplication.getMapData().get("gotoSinglePage");
+        MainApplication.getMapData().remove("gotoSinglePage");
+
+        if(TextUtils.isEmpty(curPage)){
+            curPage = "AwesomeProject";
+        }
+        return curPage;
     }
+
 }

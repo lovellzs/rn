@@ -20,3 +20,9 @@ export default CustomApp;
 CustomApp.gotoPage=function(from,to,params){
     CustomAppModule.gotoPage(from,to,params);
 }
+
+CustomApp.gotoSinglePage=function(from,to,params){
+    CustomAppModule.gotoPage(from,to,params);
+}
+
+

@@ -2,6 +2,7 @@ package com.sz.module;
 
 import android.content.Intent;
 
+import com.awesomeproject.MainApplication;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -45,14 +46,38 @@ public class CustomAppModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void gotoSinglePage(String from, String to , ReadableMap params ) {
 
+        MainApplication.getMapData().put("gotoSinglePage",to);
         Intent intent = new Intent();
         try {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setClass(getReactApplicationContext(),  Class.forName( "com.szapp.activity." + to ) ); //参数一
+            intent.setClass(getReactApplicationContext(),  Class.forName( "com.szapp.activity.DynamicRNActivity" ) ); //参数一
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         getReactApplicationContext().startActivity( intent );
+    }
+
+    /**
+     * 删除缓存
+     * @param key
+     * @param remove
+     */
+    @ReactMethod
+    public void getTempData( String key,Boolean remove ){
+        MainApplication.getMapData().get(key);
+        if(remove){
+            MainApplication.getMapData().remove(key);
+        }
+    }
+
+    @ReactMethod
+    public void getTempData( String key){
+        this.getTempData(key,false);
+    }
+
+    @ReactMethod
+    public void setTempData( String key,String val){
+        MainApplication.getMapData().put(key,val);
     }
 
 //    Boolean -> Bool

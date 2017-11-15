@@ -5,8 +5,7 @@
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"test": "jest",
-		"dabao": "node_modules/.bin/react-native run-android",
-		"releasebao": "把那一大串打包命令拿过来"
+		"dabao": "node_modules/.bin/react-native run-android"
 	},
 	"dependencies": {
 		"react": "16.0.0-alpha.12",

@@ -20,12 +20,22 @@ export default class MainActivity extends Component {
         CustomApp.gotoPage("",topage,{});
     }
 
+    gotoSinglePage(topage){
+        CustomApp.gotoSinglePage("",topage,{});
+    }
     render() {
         return (
             <View style={styles.container}>
-                <Text>MainActivity</Text><Text>{"\n"}{"\n"}</Text>
+                <Text>静态Activity</Text><Text>{"\n"}{"\n"}</Text>
                 <Text onPress={ this.goto.bind(this,"AboutActivity") }>跳转到AboutActivity</Text><Text>{"\n"}{"\n"}</Text>
                 <Text onPress={ this.goto.bind(this,"SplashActivity") }>跳转到SplashActivity</Text><Text>{"\n"}{"\n"}</Text>
+
+                <Text>{"\n"}{"\n"}</Text>
+                <Text>{"\n"}{"\n"}</Text>
+
+                <Text>动态的budle</Text><Text>{"\n"}{"\n"}</Text>
+                <Text onPress={ this.gotoSinglePage.bind(this,"AboutActivity") }>跳转到AboutActivity</Text><Text>{"\n"}{"\n"}</Text>
+                <Text onPress={ this.gotoSinglePage.bind(this,"SplashActivity") }>跳转到SplashActivity</Text><Text>{"\n"}{"\n"}</Text>
             </View>
         );
     }

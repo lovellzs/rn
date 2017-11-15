@@ -19,7 +19,9 @@ import com.sz.module.UIManagerModuleReactPackage;
 import org.lovebing.reactnative.baidumap.BaiduMapPackage;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -49,9 +51,25 @@ public class MainApplication extends Application implements ReactApplication {
   }
 
   @Override
-    public void onCreate() {
+  public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+
+    application = this;
   }
 
+  private static Map<String,Object> tempData = null;
+  private static MainApplication application;
+
+  public static Map<String,Object> getMapData(){
+
+    if(tempData==null){
+      tempData = new HashMap<String,Object>();
+    }
+    return tempData ;
+  }
+
+  public static MainApplication getInstance(){
+    return application;
+  }
 }
