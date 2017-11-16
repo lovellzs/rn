@@ -22,7 +22,7 @@ CustomApp.gotoPage=function(from,to,params){
 }
 
 CustomApp.gotoSinglePage=function(from,to,params){
-    CustomAppModule.gotoPage(from,to,params);
+    CustomAppModule.gotoSinglePage(from,to,params);
 }
 
 

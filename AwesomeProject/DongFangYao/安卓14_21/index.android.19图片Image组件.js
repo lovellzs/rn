@@ -79,7 +79,7 @@ class MyImage extends Component{
 
                     <Image style={styles.img}
                            resizeMode="contain"
-                           source={require('./../baidulogo.png')}
+                           source={require('./img/baidulogo.png')}
                     />
 
                 </View>
