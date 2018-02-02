@@ -1,7 +1,6 @@
 rootProject.name = 'AwesomeProject'
 
-include ':app'
-
+include ':app', ':javatest'
 
 //添加第三方底图库  react-native-baidu-map
 include ':react-native-baidu-map'
